@@ -7,6 +7,9 @@ The R-Pi based python program has a tkinter control panel that provides status a
 
 The MQTT broker is separate from the control program.  Each ESP8266 module pings the broker every 5 seconds, and if it doesn't receive a response to its own ping within 5 seconds, executes a reset to recover from power and/or wifi dropouts.  Also for recovery purposes each module stores its status (on/off, enabled/disabled) and reverts to that status upon recovery.
 
-ESP8266 module code is lua.
+ESP8266 module code is lua, and each module uses three files; 
+init.lua is executed at restart and calls wifi.lua.
+wifi connects to local wifi and calls the appropriate control program...power control, temperature, buzzer, motion.
+
 
 FYI; I am neither a python or lua programmer, but I can write python and lua code.
