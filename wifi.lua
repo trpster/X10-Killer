@@ -1,8 +1,8 @@
 --1/12/19 minimal therm for ESP8266
 
 cfg={}
-cfg.ssid="trpsternet-24"
-cfg.pwd="seinfeld651"
+cfg.ssid="XXXXXXX"
+cfg.pwd="XXXXXXXXXX"
 cfg.save=true
 wifi.nullmodesleep(false)
 if wifi.sta.getip()==nil then
