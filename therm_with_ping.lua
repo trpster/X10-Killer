@@ -12,6 +12,9 @@
 --Revision 12/13/18  Added ping results to display
 --12/28/18 Modifed display to show pings,
 --   and added wifi_status to get temp
+--1/25/19 Changed getip to status=5, else restart
+--  before mqtt_start (at the bottom)
+--2/26/19 Added node.restart() if addr can't be found
     
 print(wifi.sta.getip())
 ID = node.chipid()
@@ -32,6 +35,11 @@ repeat
   addr = ow.search(pin)
   tmr.wdclr()
 until((addr ~= nil) or (count > 100))
+if count > 100 then
+    --sensor error
+    node.restart()
+end
+    
 print(count)
 print(addr)
 print(addr:byte(1,8))
@@ -162,8 +170,10 @@ local function mqtt_start()
     end) 
 
 end
-if wifi.sta.getip ~= nil then
+if wifi.sta.status ==5 then
     print_OLED(10,45,"+++",true)
+else 
+    node.restart()
 end
 
 mqtt_start()
